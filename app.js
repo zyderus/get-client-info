@@ -10,9 +10,10 @@ app.use(express.static(__dirname));
 
 // get Client info to backend
 app.get('/api', async (req, res) => {
-  const ua = await getClientInfo(req);
-  
-  ua.data = await ipLookUp(ua.ip);
+  // const ip = '213.230.77.167';
+  let ua = await getClientInfo(req);
+  ua.ip_data = await ipLookUp(ua.ip);
+
   // write the result as response
   res.end(JSON.stringify(ua, null, '  '));
 });
@@ -32,22 +33,12 @@ app.listen(port, () => console.log(`server is on port: ${port}`));
 
 // Lookup via geo ip service
 async function ipLookUp(ip) {
-
-  const url       = `http://ip-api.com/json/${ip}`;             // 45 requests per minute
-  const url_free  = `http://geolocation-db.com/jsonp/${ip}`;    // free and slow (CORS errors)
+  const url       = `http://ip-api.com/json/${ip}`;            // 45 requests per minute
+  const url_free  = `http://geolocation-db.com/json/${ip}`;    // free and slow (CORS errors)
   
-  const response = await fetch(url);
+  const response = await fetch(url_free);
   const data = await response.json()
-  .then(
-    function success(data) {
-      console.log('User\'s Location Data is ', data);
-      console.log('User\'s Country', data.country);
-    },
-
-    function fail(data, status) {
-      console.log('Request failed.  Returned status of', status);
-    }
-  );
+  return data;
 }
 
 // Get reverse geocode data based on lat and lng from google
