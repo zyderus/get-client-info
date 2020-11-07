@@ -1,0 +1,19 @@
+{
+  "name": "get-client-info",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ua-parser-js": "^0.7.22"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
